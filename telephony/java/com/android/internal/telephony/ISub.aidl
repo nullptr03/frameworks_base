@@ -129,9 +129,9 @@ interface ISub {
      * @param uniqueId This is the unique identifier for the subscription within the specific
      *                      subscription type.
      * @param subscriptionType the type of subscription to be removed
-     * @return true if success, false on error.
+     * @return 0 if success, < 0 on error.
      */
-    boolean removeSubInfo(String uniqueId, int subscriptionType);
+    int removeSubInfo(String uniqueId, int subscriptionType);
 
     /**
      * Set SIM icon tint color by simInfo index
@@ -260,7 +260,7 @@ interface ISub {
 
     int[] getActiveSubIdList(boolean visibleOnly);
 
-    void setSubscriptionProperty(int subId, String propKey, String propValue);
+    int setSubscriptionProperty(int subId, String propKey, String propValue);
 
     String getSubscriptionProperty(int subId, String propKey, String callingPackage,
             String callingFeatureId);
@@ -352,6 +352,13 @@ interface ISub {
        * @hide
        */
        List<SubscriptionInfo> getSubscriptionInfoListAssociatedWithUser(in UserHandle userHandle);
+
+       /**
+        * @return {@code true} if using SubscriptionManagerService instead of
+        * SubscriptionController.
+        */
+       //TODO: Removed before U AOSP public release.
+       boolean isSubscriptionManagerServiceEnabled();
 
       /**
        * Called during setup wizard restore flow to attempt to restore the backed up sim-specific
